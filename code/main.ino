@@ -15,10 +15,6 @@
 #include <LedControl.h>;
 #include <TinyGPS++.h>;
 
-// 0 : ATTINY1634
-// 1 : ARDUINO PRO MICRO
-bool plattform = 0;
-
 // 0 : SERIAL PRINT OFF
 // 1 : SERIAL PRINT ON
 bool debug = 0;
@@ -35,11 +31,13 @@ unsigned long last = 0UL;
 void setup() {
 
     // SERIAL USB CONNECTION
-    if (debug && plattform)
-        Serial.begin(115200);
+    // Serial.begin(115200);
 
     // SERIAL CONNECTION ON DEVICE TX + RX
-    (plattform) ? Serial.begin(9600) : Serial1.begin(9600);
+    // ATTINY1634
+    Serial.begin(9600);
+    // ARDUINO PRO MICRO
+    // Serial1.begin(9600);
 
     // LED DISPLAY SETUP
     lc.shutdown(0, false);
@@ -49,17 +47,17 @@ void setup() {
 
 void loop() {
 
-    while ((plattform) ? Serial.read() : Serial1.read()) {
+    while (Serial.available()) {
 
-        gps.encode((plattform) ? Serial.read() : Serial1.read());
+        gps.encode(Serial.read());
 
         if (millis() - last > 1000) {
 
-            if (debug && plattform)
+            if (debug)
                 serialMonitor(gps.speed.kmph(), gps.satellites.value());
 
             lc.shutdown(0, false);
-            printDigit(gps.speed.kmph() * 100, false);
+            printDigit(gps.speed.kmph(), false);
 
             // TEST DISPLAY OUTPUT
             // printDigit(randomDouble(25.00, 32.00), false);
