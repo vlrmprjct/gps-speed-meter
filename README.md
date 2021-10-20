@@ -1,5 +1,7 @@
 # GPS Speedometer
 
+*Without SoftSerial !*
+
 Copyright (c) 2021 Thomas Meschke
 
 MIT License
@@ -11,5 +13,10 @@ Put the GPS Module ( NEO-6M-x ) on the following pins:
 
 `RX`: Arduino Pro Micro / ATTINY 1634 => `TX` Pin
 ## Important note:
-By using an ATTINY 1634 use Serial() instead of Serial1() !
+By using an ATTINY 1634 use `Serial()` instead of `Serial1()` !
+
+## Libraries
+
+- https://github.com/wayoda/LedControl
+- https://github.com/mikalhart/TinyGPSPlus
 
