@@ -20,3 +20,6 @@ By using an ATTINY 1634 use `Serial()` instead of `Serial1()` !
 - https://github.com/wayoda/LedControl
 - https://github.com/mikalhart/TinyGPSPlus
 
+## Schematic
+![](doc/schematic.png)
+
