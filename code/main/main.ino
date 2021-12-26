@@ -19,6 +19,10 @@
 // 1 : SERIAL PRINT ON
 bool debug = 0;
 
+// 0 : TEST DISPLAY OFF
+// 1 : TEST DISPLAY ON
+bool test = 0;
+
 #define DATA 4
 #define CLK 3
 #define LOAD 2
@@ -61,10 +65,14 @@ void loop() {
                 serialMonitor(gps.speed.kmph(), gps.satellites.value());
 
             lc.shutdown(0, false);
-            printDigit(gps.speed.kmph(), false);
+
+            // NORMAL GPS OUTPUT
+            if(!test)
+                printDigit(gps.speed.kmph(), false);
 
             // TEST DISPLAY OUTPUT
-            // printDigit(randomDouble(25.00, 32.00), false);
+            if(test)
+                printDigit(randomDouble(25.00, 32.00), false);
 
             if (gps.charsProcessed() < 10) {
                 printDigit(404, false);
