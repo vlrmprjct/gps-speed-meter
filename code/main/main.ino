@@ -1,4 +1,4 @@
-// GPS Speedometer
+// GPS Speedometer v1.0.3
 // Copyright (c) 2021 Thomas Meschke
 //
 // MIT License
@@ -26,6 +26,7 @@ bool debug = 0;
 LedControl lc(DATA, CLK, LOAD);
 TinyGPSPlus gps;
 
+int stateLED = LOW;
 unsigned long last = 0UL;
 
 void setup() {
@@ -43,6 +44,9 @@ void setup() {
     lc.shutdown(0, false);
     lc.setIntensity(0, 8);
     lc.clearDisplay(0);
+
+    // STATUS LED
+    pinMode(8, OUTPUT);
 }
 
 void loop() {
@@ -57,16 +61,20 @@ void loop() {
                 serialMonitor(gps.speed.kmph(), gps.satellites.value());
 
             lc.shutdown(0, false);
-            // printDigit(gps.speed.kmph(), false);
+            printDigit(gps.speed.kmph(), false);
 
             // TEST DISPLAY OUTPUT
-            printDigit(randomDouble(25.00, 32.00), false);
+            // printDigit(randomDouble(25.00, 32.00), false);
 
             if (gps.charsProcessed() < 10) {
                 printDigit(404, false);
             }
 
             last = millis();
+
+            stateLED = (stateLED == LOW) ? HIGH : LOW;
+            digitalWrite(8, stateLED);
         }
     }
+
 }
