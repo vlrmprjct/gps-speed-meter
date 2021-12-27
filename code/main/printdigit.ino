@@ -12,11 +12,11 @@ void printDigit(int v, bool comma) {
     hundreds = v;
 
     (hundreds == 0)
-        ? lc.setChar(0, 0, ' ', false)
-        : lc.setDigit(0, 0, (byte)hundreds, false);
+        ? lc.setChar(0, 2, ' ', false)
+        : lc.setDigit(0, 2, (byte)hundreds, false);
     (tens == 0 && hundreds == 0)
         ? lc.setChar(0, 1, ' ', false)
         : lc.setDigit(0, 1, (byte)tens, false);
 
-    lc.setDigit(0, 2, (byte)ones, comma);
+    lc.setDigit(0, 0, (byte)ones, comma);
 }
