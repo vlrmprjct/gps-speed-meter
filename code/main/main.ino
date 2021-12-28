@@ -72,7 +72,7 @@ void loop() {
 
             // TEST DISPLAY OUTPUT
             if(test)
-                printDigit(randomDouble(25.00, 32.00), false);
+                printDigit(randomDouble(125.00, 135.00), false);
 
             if (gps.charsProcessed() < 10) {
                 printDigit(404, false);
@@ -84,5 +84,4 @@ void loop() {
             digitalWrite(8, stateLED);
         }
     }
-
 }
