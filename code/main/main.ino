@@ -31,6 +31,7 @@ LedControl lc(DATA, CLK, LOAD);
 TinyGPSPlus gps;
 
 int stateLED = LOW;
+int stateCount = 0;
 unsigned long last = 0UL;
 
 void setup() {
@@ -80,8 +81,13 @@ void loop() {
 
             last = millis();
 
+            // STATUS LED FLASH
+            stateCount = (stateCount > 5 ) ? 0 : stateCount + 1;
             stateLED = (stateLED == LOW) ? HIGH : LOW;
-            digitalWrite(8, stateLED);
+            if(stateCount == 5)
+                digitalWrite(8, stateLED);
+            if(stateCount != 5)
+                digitalWrite(8, LOW);
         }
     }
 }
